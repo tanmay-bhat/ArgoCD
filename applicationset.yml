@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-addons
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/tanmay-bhat/ArgoCD.git #https://github.com/argoproj-labs/applicationset.git
+      revision: HEAD
+      directories:
+      - path: charts/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true      
+      project: default
+      source:
+        repoURL: https://github.com/tanmay-bhat/ArgoCD.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
