@@ -25,6 +25,8 @@ spec:
         repoURL: https://github.com/tanmay-bhat/ArgoCD.git
         targetRevision: HEAD
         path: '{{path}}'
+        helm:
+          version: v3        
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
