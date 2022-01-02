@@ -9,6 +9,7 @@ spec:
       revision: HEAD
       directories:
       - path: charts/*
+        recurse: true
   template:
     metadata:
       name: '{{path.basename}}'
