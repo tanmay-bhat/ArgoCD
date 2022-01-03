@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: monitoring-stack
+  name: core-apps
 spec:
   generators:
   - git:
       repoURL: https://github.com/tanmay-bhat/ArgoCD.git
       revision: HEAD
       directories:
-      - path: charts/monitoring/*
+      - path: Applicationset/charts/core-apps/*
   template:
     metadata:
       name: '{{path.basename}}'
@@ -26,4 +26,4 @@ spec:
         path: '{{path}}'       
       destination:
         server: https://kubernetes.default.svc
-        namespace: monitoring
+        namespace: default
