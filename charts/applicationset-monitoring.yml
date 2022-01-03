@@ -1,15 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: cluster-addons
+  name: monitoring-stack
 spec:
   generators:
   - git:
-      repoURL: https://github.com/tanmay-bhat/ArgoCD.git #https://github.com/argoproj-labs/applicationset.git
+      repoURL: https://github.com/tanmay-bhat/ArgoCD.git
       revision: HEAD
       directories:
-      - path: charts/*
-        recurse: true
+      - path: charts/monitoring/*
   template:
     metadata:
       name: '{{path.basename}}'
@@ -24,9 +23,7 @@ spec:
       source:
         repoURL: https://github.com/tanmay-bhat/ArgoCD.git
         targetRevision: HEAD
-        path: '{{path}}'
-        helm:
-          version: v3        
+        path: '{{path}}'       
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: monitoring
