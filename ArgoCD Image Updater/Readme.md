@@ -1,1 +1,1 @@
-
+## ArgoCD Image Updater
