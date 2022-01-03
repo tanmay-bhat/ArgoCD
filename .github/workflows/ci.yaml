@@ -32,5 +32,6 @@ jobs:
 
     - name: Build and push image to digitalocean
       run: |
-        docker build -t registry.digitalocean.com/tanmaybhat/test-app:${{ env.GIT_TAG }} ./'ArgoCD Image Updater/Dockerfile'
+        cd 'ArgoCD Image Updater'
+        docker build -t registry.digitalocean.com/tanmaybhat/test-app:${{ env.GIT_TAG }} .
         docker push registry.digitalocean.com/tanmaybhat/test-app:${{ env.GIT_TAG }}      
