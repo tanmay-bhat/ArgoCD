@@ -401,7 +401,7 @@ service:
   ## @param service.type Kubernetes Service type
   ## For minikube, set this to NodePort, elsewhere use LoadBalancer
   ##
-  type: LoadBalancer
+  type: ClusterIP
   ## @param service.ports.http Service HTTP port
   ##
   ports:
