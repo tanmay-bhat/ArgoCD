@@ -1,0 +1,15 @@
+apiVersion: v1
+appVersion: 20.4.0
+deprecated: true
+description: DEPRECATED - Kubernetes Operational View - read-only system dashboard
+  for multiple K8s clusters
+home: https://github.com/hjacobs/kube-ops-view
+icon: https://raw.githubusercontent.com/hjacobs/kube-ops-view/master/kube-ops-view-logo.png
+keywords:
+- kubernetes
+- dashboard
+- operations
+name: kube-ops-view
+sources:
+- https://github.com/hjacobs/kube-ops-view
+version: 1.2.4
