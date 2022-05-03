@@ -1,0 +1,25 @@
+app: podinfo
+replicas: 1
+
+image:
+  repository: ghcr.io/stefanprodan/podinfo
+  tag: 6.1.4
+  pullPolicy: IfNotPresent
+
+ui:
+  message: "FluxCD <> Unbxd"
+
+service:
+  enabled: true
+  type: ClusterIP
+  httpPort: 9898
+  targetPort: 80 
+
+resources:
+  limits:
+    cpu: 1m
+    memory: 16Mi  
+  requests:
+    cpu: 1m
+    memory: 16Mi
+

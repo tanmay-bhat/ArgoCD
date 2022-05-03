@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    app: {{ .Values.app }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - ./podinfo
+            - --port={{ .Values.service.httpPort }}
+          env:
+          - name: PODINFO_UI_MESSAGE
+            value: {{ quote .Values.ui.message }}
+          ports:
+            - name: http-port
+              containerPort: {{ .Values.service.httpPort }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9898        
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 9898           
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 1
+          volumeMounts:
+          - name: data
+            mountPath: /data
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+      volumes:
+      - name: data
+        emptyDir: {}
